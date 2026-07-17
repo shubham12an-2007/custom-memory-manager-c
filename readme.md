@@ -22,4 +22,4 @@ Simply use the included Makefile automation:
 make
 
 # Run the test driver
-./my_mem_manager
+./my_memory_manager
