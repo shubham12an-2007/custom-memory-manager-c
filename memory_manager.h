@@ -27,4 +27,7 @@ Block *my_malloc(Block *head, size_t requested_size);
 // Memory deallocate
 void my_free(Block *head, int block_id);
 
+// Coalescing Function
+void coalesceMemoryPool(Block *head);
+
 #endif

@@ -88,6 +88,8 @@ void my_free(Block *head, int block_id)
     {
       temp->is_free = 1;
       printf("Success: Freed Block ID %d\n", block_id);
+
+      coalesceMemoryPool(head);
       return;
     }
 
@@ -95,6 +97,30 @@ void my_free(Block *head, int block_id)
   }
 
   printf("Error: Block ID %d not found in the memory pool!\n", block_id);
+}
+
+void coalesceMemoryPool(Block *head)
+{
+  Block *temp = head;
+  while (temp != NULL && temp->next != NULL)
+  {
+    if (temp->is_free == 1 && temp->next->is_free == 1)
+    {
+      Block *blockToDelete = temp->next;
+
+      temp->size = temp->size + blockToDelete->size;
+
+      temp->next = blockToDelete->next;
+
+      free(blockToDelete);
+
+      printf("Notice: Coalesced adjacent free blocks. New size of Block ID %d is %zu.\n", temp->block_id, temp->size);
+    }
+    else
+    {
+      temp = temp->next;
+    }
+  }
 }
 
 
