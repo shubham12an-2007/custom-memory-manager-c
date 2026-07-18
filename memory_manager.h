@@ -33,4 +33,8 @@ void coalesceMemoryPool(Block *head);
 // Best Fit malloc function
 Block *my_best_fit_malloc(Block *head, size_t requested_size);
 
+
+// For cleaning up the space after program is executed
+void destroyMemoryPool(Block *head);
+
 #endif

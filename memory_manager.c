@@ -164,6 +164,20 @@ Block *my_best_fit_malloc(Block *head, size_t requested_size)
   return NULL;
 }
 
+void destroyMemoryPool(Block *head)
+{
+  Block *current = head;
+  Block *nextNode = NULL;
 
+  while (current != NULL)
+  {
+    nextNode = current->next;
 
+    printf("Cleaning up: Freeing Metadata Block ID %d\n", current->block_id);
+    free(current);
 
+    current = nextNode;
+  }
+
+  printf("Success: Memory pool completely destroyed and cleared!\n");
+}

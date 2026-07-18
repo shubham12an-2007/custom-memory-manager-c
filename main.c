@@ -27,5 +27,7 @@ int main()
   Block *bestFitBlock = my_best_fit_malloc(memoryHead, 60);
   displayMemoryState(memoryHead);
 
+  // Destroying Memory Pool
+  destroyMemoryPool(memoryHead);
   return 0;
 }
