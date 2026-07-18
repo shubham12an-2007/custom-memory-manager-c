@@ -30,4 +30,7 @@ void my_free(Block *head, int block_id);
 // Coalescing Function
 void coalesceMemoryPool(Block *head);
 
+// Best Fit malloc function
+Block *my_best_fit_malloc(Block *head, size_t requested_size);
+
 #endif

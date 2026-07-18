@@ -123,4 +123,47 @@ void coalesceMemoryPool(Block *head)
   }
 }
 
+Block *my_best_fit_malloc(Block *head, size_t requested_size)
+{
+  Block *temp = head;
+  Block *best_block = NULL;
+
+  while (temp != NULL)
+  {
+    if (temp->is_free == 1 && temp->size >= requested_size)
+    {
+      if (best_block == NULL || best_block->size > temp->size)
+      {
+        best_block = temp;
+      }
+    }
+    temp = temp->next;
+  }
+
+  if (best_block != NULL)
+  {
+
+    if (best_block->size - requested_size >= 32)
+    {
+      Block *newBlock = (Block *)malloc(sizeof(Block));
+      newBlock->block_id = best_block->block_id + 500; // Unique ID shift for best-fit splits
+      newBlock->size = best_block->size - requested_size;
+      newBlock->is_free = 1;
+      newBlock->next = best_block->next;
+
+      best_block->size = requested_size;
+      best_block->next = newBlock;
+      printf("Notice (Best-Fit): Split Block ID %d. New free block ID is %d.\n", best_block->block_id, newBlock->block_id);
+    }
+
+    best_block->is_free = 0;
+    printf("Success (Best-Fit): Allocated %zu bytes in Block ID %d\n", requested_size, best_block->block_id);
+    return best_block;
+  }
+  printf("Error (Best-Fit): No suitable free block found for size %zu Bytes!\n", requested_size);
+  return NULL;
+}
+
+
+
 

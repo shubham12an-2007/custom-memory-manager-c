@@ -23,5 +23,9 @@ int main()
 
   displayMemoryState(memoryHead);
 
+  printf("\n--- TESTING BEST-FIT ALLOCATION (my_best_fit_malloc) ---\n");
+  Block *bestFitBlock = my_best_fit_malloc(memoryHead, 60);
+  displayMemoryState(memoryHead);
+
   return 0;
 }
